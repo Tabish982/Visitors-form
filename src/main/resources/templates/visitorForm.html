@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Form - Army Public School</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card mx-auto shadow-sm" style="max-width: 500px;">
+        <div class="card-header text-center">
+            <h3>Welcome</h3>
+            <h3>Visitors Digital Log Book</h3>
+        </div>
+        <div class="card-body">
+            <!-- Bind form to the 'visitor' model attribute -->
+            <form action="/submitForm" method="POST" enctype="multipart/form-data" th:object="${visitor}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" th:field="*{name}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Unit</label>
+                    <input type="text" id="role" name="role" class="form-control" th:field="*{role}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="purpose">Purpose of Visit</label>
+                    <textarea id="purpose" name="purpose" class="form-control" rows="3" th:field="*{purpose}"></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('purpose')}" th:errors="*{purpose}"></div>
+                </div>
+
+                <div class="form-group text-center">
+                    <label for="photo">Capture Photo</label><br>
+                    <video id="video" width="100%" class="border" autoplay></video><br>
+                    <button type="button" class="btn btn-primary mt-2" onclick="capturePhoto()">Capture Photo</button>
+                    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+                    <input type="hidden" id="photo" name="photo" th:field="*{photo}">
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const photoInput = document.getElementById('photo');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => { video.srcObject = stream; })
+        .catch(error => { console.error("Error accessing camera: ", error); });
+
+    function capturePhoto() {
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        const photoData = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+        photoInput.value = photoData;
+    }
+</script>
+
+<!-- Admin login link -->
+<p><a href="/adminLogin">Admin Login</a></p>
+
+</body>
+</html>

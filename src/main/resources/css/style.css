@@ -1,0 +1,17 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card-header, .card-footer {
+    background-color: #343a40;
+    color: white;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.img-thumbnail {
+    object-fit: cover;
+    border-radius: 50%;
+}

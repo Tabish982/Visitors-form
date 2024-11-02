@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <title>Submission Successful</title>
+</head>
+<body>
+<h2>Form Submitted Successfully!</h2>
+<p><strong>Name:</strong> <span th:text="${name}"></span></p>
+<p><strong>Role:</strong> <span th:text="${role}"></span></p>
+<p><strong>Purpose:</strong> <span th:text="${purpose}"></span></p>
+<p><strong>Visit Date and Time:</strong> <span th:text="${visitDateTime}"></span></p>
+<!-- Admin login link -->
+<p><a href="/adminLogin">Admin Login</a></p>
+</body>
+</html>
